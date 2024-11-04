@@ -1,0 +1,25 @@
+NODES 9
+kathmandu
+suzhou
+washington
+williamstown
+saipan
+roseville
+instanbul
+sidi_bouzid
+addis_ababa
+
+EDGES 13
+kathmandu suzhou 2126
+kathmandu addis_ababa 3289
+kathmandu instanbul 4284
+kathmandu saipan 3944
+saipan suzhou 1948
+suzhou instanbul 4917
+addis_ababa sidi_bouzid 2578
+sidi_bouzid instanbul 1136
+washington sidi_bouzid 4593
+roseville instanbul 5277
+washington roseville 396
+williamstown roseville 280
+washington williamstown 406

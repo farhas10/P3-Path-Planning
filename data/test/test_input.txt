@@ -1,0 +1,9 @@
+astar ../data/maze2.map 50 50 45 50 6
+bfs ../data/maze2.map 50 50 45 50 6
+dfs ../data/maze2.map 50 50 45 50 6
+astar ../data/maze2.map 50 50 92 50 119
+bfs ../data/maze2.map 50 50 92 50 119
+dfs ../data/maze2.map 50 50 92 50 281
+astar ../data/maze2.map 50 50 30 75 0
+bfs ../data/maze2.map 50 50 30 75 0
+dfs ../data/maze2.map 50 50 30 75 0
