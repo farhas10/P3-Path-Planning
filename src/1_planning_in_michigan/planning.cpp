@@ -7,7 +7,7 @@
 #include <algorithm>
 
 #include "planning.h"
-
+using namespace std;
 
 void printPath(std::vector<int>& path, Graph& g) {
 
@@ -51,7 +51,7 @@ std::vector<float> getEdgeCosts(int n, Graph& g)
 int getParent(int n, Graph& g)
 {
     // *** Task: Implement this function *** //
-
+    return g.nodes[n].parent;
     return -1;
 
     // *** End student code *** //
@@ -64,22 +64,60 @@ void initGraph(Graph& g)
     {
         Node n;
         n.city = g.data[i];
+        n.visited = false;
+        n.distance = 10000000000;
+        n.parent;
         g.nodes.push_back(n);
     }
+
+    
 }
 
 std::vector<int> bfs(int start, int goal, Graph& g)
 {
     initGraph(g);
-    std::vector<int> path;
+    vector<int> path;
+    queue<int> visit_queue;
+    visit_queue.push(start);
+    g.nodes[start].visited = true;
+    g.nodes[start].queued = true;
+    g.nodes[start].parent = -1;
+    g.nodes[start].distance = 0;
 
-    std::queue<int> visit_queue;
+    while(!visit_queue.empty()){
+        int current = visit_queue.front();
+        visit_queue.pop();
 
-    // *** Task: Implement this function *** //
+        if (current == goal){
+            path = tracePath(current, g);
+            for (int i = 0; i < path.size(); i++){
+                cout << path[i] << endl;
+            }
+            return path;
+        }
 
-    // *** End student code *** //
+        vector<int> neighbors = getNeighbors(current, g);
+        vector<float> edgeCosts = getEdgeCosts(current, g);
 
-    return path;
+        for (int i = 0; i < neighbors.size(); i++){
+            int neighbor = neighbors[i];
+            float cost = edgeCosts[i];
+
+            if (g.nodes[neighbor].queued == false && g.nodes[neighbor].visited == false){
+                visit_queue.push(neighbor);
+                g.nodes[neighbor].queued = true;
+                if ((g.nodes[current].distance + cost) < (g.nodes[neighbor].distance)){
+                    g.nodes[neighbor].distance = g.nodes[current].distance + cost;
+                    g.nodes[neighbor].parent = current;
+                }
+            }
+
+        }
+        g.nodes[current].visited = true;
+    }
+
+
+    
 }
 
 std::vector<int> dfs(int start, int goal, Graph& g)

@@ -3,7 +3,7 @@
 #include <sstream>
 #include <iostream>
 #include <algorithm>
-
+using namespace std;
 #include <path_planning/utils/math_helpers.h>
 #include <path_planning/utils/graph_utils.h>
 
@@ -80,7 +80,15 @@ std::string mapAsString(GridGraph& graph)
 void initGraph(GridGraph& graph)
 {
     // *** Task: Initialize any variables YOU added to the GridGraph *** //
-
+    graph.nodes.clear();
+    int num_cells = graph.width *graph.height;
+    for (int i = 0; i < num_cells; i++){
+        CellNode n;
+        n.distance = 1000000000000;
+        n.parent = -1;
+        n.visited = false;
+        graph.nodes.push_back(n);
+    }
     // *** End student code *** //
 }
 
@@ -141,25 +149,91 @@ bool isCellOccupied(int i, int j, const GridGraph& graph)
 
 std::vector<int> findNeighbors(int idx, const GridGraph& graph)
 {
-    // *** Task: Implement this function *** //
+    // *** Task: Implement this function *** // 
 
     /**
      * NOTE: Be sure the neighbors are returned in the following order:
      * 
-     * -1 in i direction, -1 in j direction
-     * -1 in i direction, +0 in j direction
-     * -1 in i direction, +1 in j direction
-     * +0 in i direction, -1 in j direction
-     * +0 in i direction, +0 in j direction
-     * +0 in i direction, +1 in j direction
-     * +1 in i direction, -1 in j direction 
-     * +1 in i direction, +0 in j direction
-     * +1 in i direction, +1 in j direction
+     * -1 in i direction, -1 in j direction /
+     * -1 in i direction, +0 in j direction /
+     * -1 in i direction, +1 in j direction /
+     * +0 in i direction, -1 in j direction /
+     * +0 in i direction, +0 in j direction /
+     * +0 in i direction, +1 in j direction /
+     * +1 in i direction, -1 in j direction /
+     * +1 in i direction, +0 in j direction /
+     * +1 in i direction, +1 in j direction /
      * 
      * This will be necessary to pass the test cases.
      */
-
+    Cell c = idxToCell(idx, graph);
     std::vector<int> neighbors = std::vector<int>();
+    
+    int x = c.i;
+    int y = c.j;
+    int i, j;
+
+    i = x-1;
+    j = y-1;
+    
+    if (isCellInBounds(i, j, graph) == 1){
+        neighbors.push_back(cellToIdx(i, j, graph));
+    }
+
+    i = x-1;
+    j = y;
+    
+    if (isCellInBounds(i, j, graph) == 1){
+        neighbors.push_back(cellToIdx(i, j, graph));
+    }
+
+    i = x-1;
+    j = y + 1;
+    
+    if (isCellInBounds(i, j, graph) == 1){
+        neighbors.push_back(cellToIdx(i, j, graph));
+    }
+
+    i = x;
+    j = y - 1;
+    
+    if (isCellInBounds(i, j, graph) == 1){
+        neighbors.push_back(cellToIdx(i, j, graph));
+    }
+
+
+    i = x;
+    j = y + 1;
+    
+    if (isCellInBounds(i, j, graph) == 1){
+        neighbors.push_back(cellToIdx(i, j, graph));
+    }
+
+    i = x+1;
+    j = y-1;
+    
+    if (isCellInBounds(i, j, graph) == 1){
+        neighbors.push_back(cellToIdx(i, j, graph));
+    }
+
+    i = x+1;
+    j = y;
+    
+    if (isCellInBounds(i, j, graph) == 1){
+        neighbors.push_back(cellToIdx(i, j, graph));
+    }
+
+    i = x+1;
+    j = y +1;
+    
+    if (isCellInBounds(i, j, graph) == 1){
+        neighbors.push_back(cellToIdx(i, j, graph));
+    }
+
+    
+
+
+
     return neighbors;
 
     // *** End student code *** //
@@ -212,8 +286,8 @@ bool checkCollision(int idx, const GridGraph& graph)
 int getParent(int idx, const GridGraph& graph)
 {
     // *** Task: Implement this function *** //
-    
-    return 0;
+    return graph.nodes[idx].parent;
+
 
     // *** End student code *** //
 }

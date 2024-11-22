@@ -8,6 +8,7 @@
 #include <fstream>
 #include <iostream>
 #include <algorithm>
+using namespace std;
 
 #define HIGH 1e6
 
@@ -16,7 +17,11 @@
  */
 struct Node
 {
-    std::string city;
+    string city;
+    bool visited;
+    bool queued;
+    float distance;
+    int parent;
     
     // *** Task: Add variables necessary for running your search algorithms *** //
 
@@ -147,12 +152,17 @@ std::vector<float> getEdgeCosts(int n, Graph& g);
  * @param  g The associated graph.
  * @return  The index of the parent of the node.
  */
+
+
 int getParent(int n, Graph& g);
+
 
 /**
  * Initializes node data in a graph. Intended to be called after createGraph().
  * @param[out]  g The graph to initialize.
  */
+
+
 void initGraph(Graph& g);
 
 /**
@@ -162,6 +172,8 @@ void initGraph(Graph& g);
  * @param  g The associated graph.
  * @return  A list of indicies of nodes that form a path from the starting node to the goal node.
  */
+
+ //DO THIS METHOD
 std::vector<int> bfs(int start, int goal, Graph& g);
 
 /**

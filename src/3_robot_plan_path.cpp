@@ -42,8 +42,8 @@ int main(int argc, char const *argv[])
 
     Cell start = posToCell(pose[0], pose[1], graph);
 
-    // std::vector<Cell> path = breadthFirstSearch(graph, start, goal);
-    std::vector<Cell> path = aStarSearch(graph, start, goal);
+    std::vector<Cell> path = breadthFirstSearch(graph, start, goal);
+    //std::vector<Cell> path = aStarSearch(graph, start, goal);
     std::cout << "Found path!\n";
     robot.drivePath(cellsToPoses(path, graph));
 
