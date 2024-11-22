@@ -82,8 +82,8 @@ std::vector<Cell> breadthFirstSearch(GridGraph &graph, const Cell &start, const 
             path = tracePath(curr, graph);
             return path;
         }
-        */
-
+        
+*/
         vector<int> neighbors = findNeighbors(curr, graph);
 
         for (int i = 0; i < neighbors.size(); i++){
